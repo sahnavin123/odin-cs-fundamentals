@@ -15,7 +15,7 @@ class LinkedList {
   append = (value) => {
     const newNode = new Node(value);
 
-    if (!this.head) {
+    if (this.head === null) {
       this.head = newNode;
       this.tail = newNode;
     } else {
@@ -29,7 +29,7 @@ class LinkedList {
   prepend = (value) => {
     const newNode = new Node(value);
 
-    if (!this.head) {
+    if (this.head === null) {
       this.head = newNode;
       this.tail = newNode;
     } else {
@@ -170,4 +170,4 @@ console.log(list.size); // Output: 4
 console.log(list.head.value); // Output: 3
 console.log(list.tail.value); // Output: 4
 
-console.log(list.at(2).value); // Output:
+console.log(list.at(2).value); // Output: 2

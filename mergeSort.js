@@ -1,68 +1,66 @@
-const merge = (arr, l, mid, r) => {
-  let n1 = mid - l + 1;
-  let n2 = r - mid;
+const merge = (array, leftIndex, middleIndex, rightIndex) => {
+  let leftMostSize = middleIndex - leftIndex + 1; // this is the length upto left to middle value
+  let rightMostSize = rightIndex - middleIndex; // this is the length upto middle to right most value
 
-  let L = new Array(n1);
-  let R = new Array(n2);
+  let leftArray = new Array(leftMostSize); // this array will contain values from left to mid
+  let rightArray = new Array(rightMostSize); // this array will contain values from mid to right
 
-  for (let i = 0; i < n1; i++) {
-    L[i] = arr[l + i];
+  for (let i = 0; i < leftMostSize; i++) {
+    leftArray[i] = array[leftIndex + i];
   }
 
-  for (let j = 0; j < n2; j++) {
-    R[j] = arr[mid + 1 + j];
+  for (let j = 0; j < rightMostSize; j++) {
+    rightArray[j] = array[middleIndex + 1 + j];
   }
 
-  let i = 0;
-  let j = 0;
+  let ptr1 = 0;
+  let ptr2 = 0;
 
-  let k = l;
-  while (i < n1 && j < n2) {
-    if (L[i] <= R[j]) {
-      arr[k] = L[i];
-      i++;
+  let currentIndex = leftIndex;
+  while (ptr1 < leftMostSize && ptr2 < rightMostSize) {
+    if (leftArray[ptr1] <= rightArray[ptr2]) {
+      array[currentIndex] = leftArray[ptr1];
+      ptr1++;
     } else {
-      arr[k] = R[j];
-      j++;
+      array[currentIndex] = rightArray[ptr2];
+      ptr2++;
     }
-    k++;
+    currentIndex++;
   }
 
-  while (i < n1) {
-    arr[k] = L[i];
-    i++;
-    k++;
+  while (ptr1 < leftMostSize) {
+    array[currentIndex] = leftArray[ptr1];
+    ptr1++;
+    currentIndex++;
   }
 
-  while (j < n2) {
-    arr[k] = R[j];
-    j++;
-    k++;
-  }
-};
-
-const mergeSort = (arr, l, r) => {
-  if (l >= r) return;
-
-  let mid = l + parseInt((r - l) / 2);
-  mergeSort(arr, l, mid);
-  mergeSort(arr, mid + 1, r);
-  merge(arr, l, mid, r);
-};
-
-const printArray = (arr, size) => {
-  for (let i = 0; i < size; i++) {
-    console.log(arr[i], " "); //5 6 7 11 12 13
+  while (ptr2 < rightMostSize) {
+    array[currentIndex] = rightArray[ptr2];
+    ptr2++;
+    currentIndex++;
   }
 };
 
-let arr = [12, 11, 13, 5, 6, 7];
-let arr_size = arr.length;
+const mergeSort = (array, leftIndex, rightIndex) => {
+  if (leftIndex >= rightIndex) return;
+
+  let middleIndex = leftIndex + parseInt((rightIndex - leftIndex) / 2);
+  mergeSort(array, leftIndex, middleIndex);
+  mergeSort(array, middleIndex + 1, rightIndex);
+  merge(array, leftIndex, middleIndex, rightIndex);
+};
+
+const printArray = (array, size) => {
+  console.log(array); //5 6 7 11 12 13
+};
+
+let array = [12, 11, 13, 5, 6, 7];
+let array_size = array.length;
 
 console.log("Given array is");
-printArray(arr, arr_size);
+printArray(array, array_size);
 
-mergeSort(arr, 0, arr_size - 1);
+mergeSort(array, 0, array_size - 1);
 
 console.log("sorted arr is");
-printArray(arr, arr_size);
+printArray(array, array_size);
