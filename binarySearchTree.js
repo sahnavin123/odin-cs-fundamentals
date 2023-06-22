@@ -33,57 +33,24 @@ class Tree {
   insert = (value) => {
     const newNode = new Node(value);
 
-    if (!this.root) {
-      this.root = newNode;
-    } else {
-      this.insertNode(this.root, newNode);
-    }
+    this.root === null
+      ? (this.root = newNode)
+      : this.insertNode(this.root, newNode);
   };
 
   insertNode = (node, newNode) => {
-    if (newNode.data < node.data) {
-      if (!node.left) {
-        node.left = newNode;
-      } else {
-        this.insertNode(node.left, newNode);
-      }
-    } else {
-      if (!node.right) {
-        node.right = newNode;
-      } else {
-        this.insertNode(node.right, newNode);
-      }
+    switch (true) {
+      case newNode.data < node.data:
+        !node.left
+          ? (node.left = newNode)
+          : this.insertNode(node.left, newNode);
+        break;
+      default:
+        !node.right
+          ? (node.right = newNode)
+          : this.insertNode(node.right, newNode);
+        break;
     }
-  };
-
-  delete = (value) => {
-    this.root = this.deleteNode(this.root, value);
-  };
-
-  deleteNode = (node, value) => {
-    if (!node) {
-      return null;
-    }
-
-    if (value < node.data) {
-      node.left = this.deleteNode(node.left, value);
-    } else if (value > node.data) {
-      node.right = this.deleteNode(node.right, value);
-    } else {
-      if (!node.left && !node.right) {
-        return null;
-      } else if (!node.left) {
-        return node.right;
-      } else if (!node.right) {
-        return node.left;
-      }
-
-      const minNode = this.findMinNode(node.right);
-      node.data = minNode.data;
-      node.right = this.deleteNode(node.right, minNode.data);
-    }
-
-    return node;
   };
 
   find = (value) => {
@@ -108,22 +75,15 @@ class Tree {
     const result = [];
     const queue = [];
 
-    if (this.root) {
-      queue.push(this.root);
-    }
+    this.root ? queue.push(this.root) : null;
 
     while (queue.length > 0) {
       const node = queue.shift();
 
       result.push(node.data);
 
-      if (node.left) {
-        queue.push(node.left);
-      }
-
-      if (node.right) {
-        queue.push(node.right);
-      }
+      node.left ? queue.push(node.left) : null;
+      node.right ? queue.push(node.right) : null;
     }
 
     return result;
@@ -133,15 +93,11 @@ class Tree {
     const result = [];
 
     const traverse = (node) => {
-      if (node.left) {
-        traverse(node.left);
-      }
+      node.left ? traverse(node.left) : null;
 
       result.push(node.data);
 
-      if (node.right) {
-        traverse(node.right);
-      }
+      node.right ? traverse(node.right) : null;
     };
 
     traverse(this.root);
@@ -155,13 +111,9 @@ class Tree {
     const traverse = (node) => {
       result.push(node.data);
 
-      if (node.left) {
-        traverse(node.left);
-      }
+      node.left ? traverse(node.left) : null;
 
-      if (node.right) {
-        traverse(node.right);
-      }
+      node.right ? traverse(node.right) : null;
     };
 
     traverse(this.root);
@@ -173,13 +125,9 @@ class Tree {
     const result = [];
 
     const traverse = (node) => {
-      if (node.left) {
-        traverse(node.left);
-      }
+      node.left ? traverse(node.left) : null;
 
-      if (node.right) {
-        traverse(node.right);
-      }
+      node.right ? traverse(node.right) : null;
 
       result.push(node.data);
     };
@@ -243,9 +191,7 @@ const getRandomNumbers = (count) => {
   const numbers = [];
   while (numbers.length < count) {
     const randomNumber = Math.floor(Math.random() * 100);
-    if (!numbers.includes(randomNumber)) {
-      numbers.push(randomNumber);
-    }
+    !numbers.includes(randomNumber) ? numbers.push(randomNumber) : null;
   }
   return numbers;
 };

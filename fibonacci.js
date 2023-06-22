@@ -1,13 +1,21 @@
-const fibonacci = (n) => {
-  const fibArr = [0, 1];
+let number = 8;
+const fib = (n) => {
+  if (n <= 1) {
+    return n;
+  }
+  return fib(n - 1) + fib(n - 2);
+};
 
-  for (let i = 2; i < n; i++) {
-    const nextFib = fibArr[i - 1] + fibArr[i - 2];
-    fibArr.push(nextFib);
+const recursiveFib = (n) => {
+  if (n <= 0) {
+    return;
+  }
+  const fibArr = [];
+  for (let i = 1; i <= n; i++) {
+    fibArr.push(fib(i - 1));
   }
 
   return fibArr;
 };
 
-const number = 8;
-console.log(fibonacci(number)); // [0, 1, 1, 2, 3, 5, 8, 13]
+console.log(recursiveFib(number)); //[0, 1, 1,  2, 3, 5, 8, 13]

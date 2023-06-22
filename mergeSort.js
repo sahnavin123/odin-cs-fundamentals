@@ -18,13 +18,11 @@ const merge = (array, leftIndex, middleIndex, rightIndex) => {
 
   let currentIndex = leftIndex;
   while (ptr1 < leftMostSize && ptr2 < rightMostSize) {
-    if (leftArray[ptr1] <= rightArray[ptr2]) {
-      array[currentIndex] = leftArray[ptr1];
-      ptr1++;
-    } else {
-      array[currentIndex] = rightArray[ptr2];
-      ptr2++;
-    }
+    array[currentIndex] =
+      leftArray[ptr1] <= rightArray[ptr2]
+        ? leftArray[ptr1++]
+        : rightArray[ptr2++];
+
     currentIndex++;
   }
 

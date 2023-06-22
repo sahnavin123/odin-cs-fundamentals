@@ -15,13 +15,9 @@ class LinkedList {
   append = (value) => {
     const newNode = new Node(value);
 
-    if (this.head === null) {
-      this.head = newNode;
-      this.tail = newNode;
-    } else {
-      this.tail.nextNode = newNode;
-      this.tail = newNode;
-    }
+    this.head === null
+      ? ((this.head = newNode), (this.tail = newNode))
+      : ((this.tail.nextNode = newNode), (this.tail = newNode));
 
     this.size++;
   };
@@ -29,13 +25,9 @@ class LinkedList {
   prepend = (value) => {
     const newNode = new Node(value);
 
-    if (this.head === null) {
-      this.head = newNode;
-      this.tail = newNode;
-    } else {
-      newNode.nextNode = this.head;
-      this.head = newNode;
-    }
+    this.head === null
+      ? ((this.head = newNode), (this.tail = newNode))
+      : ((newNode.nextNode = this.head), (this.head = newNode));
 
     this.size++;
   };
@@ -57,7 +49,7 @@ class LinkedList {
   };
 
   pop = () => {
-    if (!this.head) {
+    if (this.head === null) {
       return null;
     }
 
@@ -113,7 +105,7 @@ class LinkedList {
       const removedNode = this.head;
       this.head = this.head.nextNode;
 
-      if (!this.head) {
+      if (this.head === null) {
         this.tail = null;
       }
 
